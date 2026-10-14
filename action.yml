@@ -1,0 +1,44 @@
+name: Excusa como servicio
+description: Cuando falla el CI, comenta en el PR una excusa que encaja con el fallo y lo cierra como "no reproducible".
+author: mate0s
+branding:
+  icon: alert-triangle
+  color: red
+
+inputs:
+  log-file:
+    description: Ruta al log del paso que falló
+    required: false
+    default: ""
+  cerrar-pr:
+    description: Cierra el PR como "no reproducible" tras comentar
+    required: false
+    default: "false"
+  github-token:
+    description: Token con permiso para comentar
+    required: false
+    default: ${{ github.token }}
+
+runs:
+  using: composite
+  steps:
+    - name: Generar excusa y comentar
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github-token }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+        CERRAR: ${{ inputs.cerrar-pr }}
+        LOG_FILE: ${{ inputs.log-file }}
+        AUTOR: ${{ github.event.pull_request.user.login || github.actor }}
+      run: |
+        OUT=$(node "${{ github.action_path }}/excusa.js" "$LOG_FILE" --author="$AUTOR")
+        CAT=$(echo "$OUT" | sed -n 1p)
+        EXCUSA=$(echo "$OUT" | sed -n '2,$p')
+        BODY=$(printf '### 🧾 Informe de incidencia (%s)\n\n> %s\n\n_Estado: no reproducible._\n\n<sub>Generado por [excusa-como-servicio](https://github.com/cmate0s/excusa-como-servicio)</sub>' "$CAT" "$EXCUSA")
+        echo "$BODY"
+        if [ -n "$PR_NUMBER" ]; then
+          gh pr comment "$PR_NUMBER" --body "$BODY"
+          if [ "$CERRAR" = "true" ]; then
+            gh pr close "$PR_NUMBER" --comment "Cerrado como no reproducible."
+          fi
+        fi

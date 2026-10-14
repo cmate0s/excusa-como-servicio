@@ -1,0 +1,75 @@
+{
+  "flaky": [
+    "{test} lleva meses fallando de forma intermitente. Es el único empleado con horario flexible y nadie se ha atrevido a despedirlo.",
+    "{test} falla una de cada cinco veces. Estadísticamente es el miembro del equipo más honesto sobre sus ganas de trabajar.",
+    "{test} no está roto. Tiene días malos. Aquí nadie pregunta cómo está, así que se desahoga en el CI.",
+    "Volver a lanzar el pipeline hasta que pase no es una solución, es fe. Y la fe es la única metodología ágil que nos queda.",
+    "{test} pasa en local y falla en CI. Igual que todos nosotros: funciona en casa, se hunde delante de gente.",
+    "El fallo de {test} es no determinista, como el sentido de la vida. Cerramos el ticket como 'filosófico'.",
+    "{test} falló, pero {author} ha reiniciado el job tres veces y ha pasado. Así empiezan todos los desastres con una buena estadística."
+  ],
+  "null": [
+    "Algo es null porque no existía. {author} lo trató como si existiera. Hay quien lleva así toda una carrera.",
+    "El objeto es null porque decidió no existir. Respetamos su decisión y recomendamos no seguir investigando.",
+    "NullPointerException: el equivalente técnico de preguntar por tu padre en Navidad.",
+    "{file} esperaba un valor y recibió nada. Como la mayoría de los ascensos de este equipo.",
+    "Null es el único valor honesto de este código: dice claramente que no hay nada. El resto de variables mienten.",
+    "El dato no llegó. La base de datos lo borró hace meses y nadie avisó. Descanse en paz, ya no hace falta justificar nada.",
+    "{author} comprobó que existía el usuario. El usuario había sido despedido el lunes. Los datos suelen ser más lentos que RRHH."
+  ],
+  "timeout": [
+    "El servidor tardó más de 30 segundos. Lleva tres años pidiendo vacaciones. Esto es una huelga y tiene derecho.",
+    "Timeout: el servicio está tan cansado como el equipo que lo mantiene, pero él no cobra horas extra.",
+    "La petición se quedó esperando respuesta. Como tú con tu último mensaje al equipo de infraestructura.",
+    "El sistema aguantó hasta donde pudo. Un final digno, algo que no tendrán los que lo diseñaron.",
+    "El timeout no es un fallo. Es el servidor diciendo 'no' con la educación que tú nunca tuviste con él.",
+    "La API de terceros no responde. Han quebrado. Nos enteraremos por LinkedIn, como siempre.",
+    "{test} esperó una respuesta que nunca iba a llegar. Se llama relación asimétrica y es el modelo de negocio de las startups."
+  ],
+  "merge": [
+    "Dos personas editaron la misma línea sin hablar entre sí. Como en las mejores familias: el conflicto es hereditario.",
+    "Conflicto de merge en {file}. Cada rama cree tener razón. Ninguna la tiene. Eso es política en versión ligera.",
+    "Alguien resolvió el conflicto aceptando 'ambas'. Ahora el código compila y nadie sabe por qué, igual que el matrimonio de tus padres.",
+    "{author} hizo rebase sobre una rama pública. Existen países que han iniciado guerras con menos.",
+    "El merge falló porque alguien reescribió la historia. Es lo que hacen los regímenes y también los desarrolladores con prisa.",
+    "Resolver este conflicto llevaría una hora. Matar la rama y hacer como que nunca existió, un minuto. Elegimos la segunda, como la empresa.",
+    "Se mezclaron dos ramas que nunca debieron conocerse. Es lo que pasa en las fiestas de empresa."
+  ],
+  "produccion": [
+    "Funcionaba en staging. Staging es un lugar mejor y más amable que producción, como Suiza.",
+    "Falló en producción, no en pruebas. Las pruebas nunca han tenido el valor de enfrentarse a usuarios reales.",
+    "Producción cayó. El equipo de guardia está rezando. Si Dios existiera, tendría un SLA mejor que el nuestro.",
+    "El despliegue de {author} rompió producción. Se le recomienda no hablar de ello con nadie y cambiar de LinkedIn.",
+    "{author} subió el cambio sin avisar. Un clásico: las decisiones más valientes de este equipo nunca pasan por revisión.",
+    "Rollback en curso. Los usuarios perdieron datos, pero ganaron una valiosa lección sobre apegos materiales.",
+    "Producción cayó un viernes. Es lo único que une al equipo de verdad: un enemigo común y ninguna cena de empresa."
+  ],
+  "tests": [
+    "Fallan los tests de {test}. Escribirlos costó dos semanas. Entender por qué fallan costaría un mes. Se decide, por unanimidad, eliminarlos.",
+    "El código sin tests no está roto. Está en estado cuántico hasta que alguien lo observe en producción un viernes.",
+    "Los tests fallan porque el código cambió. Si el código no hubiera cambiado, tampoco habría trabajo. Se te advirtió.",
+    "{author} dice que el test está mal escrito. Lo escribió {author} el martes pasado. Es la nueva forma de autocrítica.",
+    "Cobertura del 100% y el sistema sigue roto. Es la prueba de que se puede medir todo y entender nada, como en la vida.",
+    "La IA escribió este código y los tests. Ambos están de acuerdo en que todo funciona. Es el único consenso que se ve en esta empresa.",
+    "El test falla, pero nuestra IA dice que el código es correcto. Hemos decidido creer a la IA. Nos va a sustituir, conviene ser amables."
+  ],
+  "dependencias": [
+    "El paquete lo mantiene una sola persona que dejó de contestar en 2021. Está vivo en algún sitio, pero no en npm.",
+    "Una dependencia se actualizó y rompió todo. Se llama progreso y siempre llega sin avisar, como los despidos.",
+    "Tu proyecto depende de 1.400 paquetes. Uno de ellos lo escribió un menor de edad en 2016. Esa persona sostiene Internet y tú no lo sabías.",
+    "El paquete fue retirado por su autor en señal de protesta. Entendemos la protesta. Nos siguen faltando horas de sueño.",
+    "Falla `left-pad`. Siempre ha fallado `left-pad`. Hay una religión por mucho menos.",
+    "La versión que tenemos tiene una vulnerabilidad conocida. Se parchea cuando alguien la explote. Ese es el modelo de seguridad.",
+    "Dependabot abrió 47 PRs. Nadie los ha leído. Es lo más parecido a una oración que le queda a esta empresa."
+  ],
+  "generico": [
+    "No es un bug, es una funcionalidad que aún no ha sido aceptada por la sociedad.",
+    "Esto lo causó {author}, pero la culpa es del sistema. Del capitalismo. Y del lunes.",
+    "Cerramos como 'no reproducible'. Si el error vuelve, lo cerraremos como 'no relevante'. Si sigue, como 'por diseño'.",
+    "Este código lo escribió alguien que ya no trabaja aquí. Descanse en paz su sueldo y su cordura.",
+    "El código funciona. El mundo es el que está mal. Pero eso queda fuera del alcance de este sprint.",
+    "No hay documentación porque quien lo sabía se fue. Se lo llevó todo en la cabeza y una caja de cartón.",
+    "{file} se rompe cuando {author} lo toca. Hay una explicación técnica y otra espiritual. La segunda es más fiable.",
+    "El fallo existe desde hace años. Llevamos tanto tiempo con él que ahora es legacy, y el legacy está protegido por ley."
+  ]
+}
