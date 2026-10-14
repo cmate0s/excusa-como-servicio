@@ -1,5 +1,7 @@
 # excusa-como-servicio
 
+🌐 **Demo en vivo:** https://excusa-como-servicio.vercel.app
+
 Cuando falla el CI, esta GitHub Action lee el log, detecta qué tipo de fallo es y comenta en el PR una excusa a medida. Después puede cerrarlo como "no reproducible".
 
 No es una excusa al azar: se elige según el error (null, timeout, merge, dependencias, producción, tests flaky...) y cita el test, el archivo y el autor reales.
