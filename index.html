@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Excusa como servicio</title>
+<meta name="description" content="Pega el error de tu CI y recibe una excusa a medida. Open source, por mate0s.">
+<style>
+  :root { --bg:#0b0f14; --fg:#d7e3f4; --mut:#7d8ea5; --acc:#39ff88; --card:#121923; --line:#223044; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  main { max-width:720px; margin:0 auto; padding:40px 16px 64px; }
+  h1 { font-size:28px; margin:0 0 4px; color:var(--acc); }
+  p.sub { color:var(--mut); margin:0 0 28px; }
+  label { display:block; font-size:13px; color:var(--mut); margin:16px 0 6px; }
+  textarea, select, input { width:100%; background:var(--card); color:var(--fg); border:1px solid var(--line); border-radius:6px; padding:10px; font:inherit; }
+  textarea { min-height:140px; resize:vertical; }
+  .row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  button { background:var(--acc); color:#04120a; border:0; border-radius:6px; padding:12px 18px; font:inherit; font-weight:700; cursor:pointer; margin-top:20px; }
+  button.sec { background:transparent; color:var(--fg); border:1px solid var(--line); margin-left:8px; }
+  #out { margin-top:28px; background:var(--card); border:1px solid var(--line); border-left:4px solid var(--acc); border-radius:6px; padding:16px; display:none; }
+  #out small { color:var(--mut); display:block; margin-bottom:8px; }
+  #out blockquote { margin:0; font-size:18px; }
+  footer { margin-top:40px; color:var(--mut); font-size:14px; }
+  a { color:var(--acc); }
+  @media (max-width:520px){ .row{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<main>
+  <h1>excusa-como-servicio</h1>
+  <p class="sub">Pega el error de tu CI. Recibe una excusa que encaja. Estado: no reproducible.</p>
+
+  <label for="log">Log del error (opcional)</label>
+  <textarea id="log" placeholder="TypeError: Cannot read properties of null (reading 'id') at src/user.js"></textarea>
+
+  <div class="row">
+    <div>
+      <label for="cat">Categoría</label>
+      <select id="cat"><option value="">Detectar automáticamente</option></select>
+    </div>
+    <div>
+      <label for="author">Autor del PR</label>
+      <input id="author" placeholder="tu-usuario">
+    </div>
+  </div>
+
+  <button id="go">Generar excusa</button><button id="copy" class="sec">Copiar</button>
+
+  <div id="out"><small id="cat-out"></small><blockquote id="txt"></blockquote></div>
+
+  <footer>
+    Es una GitHub Action de verdad: <a href="https://github.com/cmate0s/excusa-como-servicio">cmate0s/excusa-como-servicio</a><br>
+    Más caos en <a href="https://youtube.com/@mate0s-dev91">YouTube @mate0s-dev91</a>
+  </footer>
+</main>
+<script>
+const reglas = [
+  ["null", /null|undefined|NoneType|NullPointer|nil pointer/i],
+  ["timeout", /timeout|timed out|ETIMEDOUT|deadline exceeded/i],
+  ["merge", /merge conflict|CONFLICT|<<<<<<<|rebase/i],
+  ["dependencias", /npm ERR|ERESOLVE|ModuleNotFound|Cannot find module|dependency|dependabot|pip.*error/i],
+  ["produccion", /production|prod\b|deploy|rollback/i],
+  ["flaky", /flaky|retry|intermittent|rerun/i],
+  ["tests", /FAIL|AssertionError|expected .* to|Test failed|tests? failed/i],
+];
+let excusas = {};
+const $ = id => document.getElementById(id);
+fetch("excusas.json").then(r => r.json()).then(d => {
+  excusas = d;
+  Object.keys(d).forEach(k => { const o = document.createElement("option"); o.value = k; o.textContent = k; $("cat").appendChild(o); });
+});
+function primero(log, re) { const m = log.match(re); return m ? (m[1] || m[0]) : null; }
+$("go").onclick = () => {
+  if (!Object.keys(excusas).length) return;
+  const log = $("log").value;
+  let cat = $("cat").value;
+  if (!cat) { cat = "generico"; for (const [c, re] of reglas) if (re.test(log)) { cat = c; break; } }
+  const ctx = {
+    author: $("author").value.trim() || "alguien",
+    test: primero(log, /(?:FAIL|✕|●)\s+([^\n]{3,60})/) || "el test",
+    file: primero(log, /([\w./-]+\.(?:js|ts|py|go|java|rb|rs|cs|php))/) || "el archivo",
+  };
+  const l = excusas[cat];
+  const t = l[Math.floor(Math.random() * l.length)].replace(/\{(author|test|file)\}/g, (_, k) => ctx[k]);
+  $("cat-out").textContent = "Informe de incidencia (" + cat + ")";
+  $("txt").textContent = t;
+  $("out").style.display = "block";
+};
+$("copy").onclick = () => { const t = $("txt").textContent; if (t) navigator.clipboard.writeText(t).catch(() => {}); };
+</script>
+</body>
+</html>
